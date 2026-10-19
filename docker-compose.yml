@@ -56,6 +56,10 @@ x-base-config: &base-config
     start_period: 40s
   user: "appuser"
 
+networks:
+  caddynet:
+    external: true
+
 services:
   crawl4ai:
     # 1. Default: Pull multi-platform test image from Docker Hub
@@ -69,6 +73,9 @@ services:
       args:
         INSTALL_TYPE: ${INSTALL_TYPE:-default}
         ENABLE_GPU: ${ENABLE_GPU:-false}
+
+    networks:
+      - caddynet
     
     # Inherit shared config
     <<: *base-config
